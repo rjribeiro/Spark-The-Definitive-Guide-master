@@ -68,10 +68,7 @@ spark.sparkContext.parallelize(range(1, 21)).reduce(lambda x, y: x + y) # 210
 # COMMAND ----------
 
 def wordLengthReducer(leftWord, rightWord):
-  if len(leftWord) > len(rightWord):
-    return leftWord
-  else:
-    return rightWord
+  return leftWord if len(leftWord) > len(rightWord) else rightWord
 
 words.reduce(wordLengthReducer)
 
@@ -89,8 +86,7 @@ words.mapPartitions(lambda part: [1]).sum() # 2
 # COMMAND ----------
 
 def indexedFunc(partitionIndex, withinPartIterator):
-  return ["partition: {} => {}".format(partitionIndex,
-    x) for x in withinPartIterator]
+  return [f"partition: {partitionIndex} => {x}" for x in withinPartIterator]
 words.mapPartitionsWithIndex(indexedFunc).collect()
 
 

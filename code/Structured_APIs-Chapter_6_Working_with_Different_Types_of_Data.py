@@ -174,9 +174,8 @@ df.withColumn("hasSimpleColor", containsBlack | containsWhite)\
 from pyspark.sql.functions import expr, locate
 simpleColors = ["black", "white", "red", "green", "blue"]
 def color_locator(column, color_string):
-  return locate(color_string.upper(), column)\
-          .cast("boolean")\
-          .alias("is_" + color_string)
+  return (locate(color_string.upper(),
+                 column).cast("boolean").alias(f"is_{color_string}"))
 selectedColumns = [color_locator(df.Description, c) for c in simpleColors]
 selectedColumns.append(expr("*")) # has to a be Column type
 

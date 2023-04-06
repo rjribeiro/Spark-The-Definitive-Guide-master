@@ -23,7 +23,7 @@ activityQuery = activityCounts.writeStream.queryName("activity_counts")\
 # COMMAND ----------
 
 from time import sleep
-for x in range(5):
+for _ in range(5):
     spark.sql("SELECT * FROM activity_counts").show()
     sleep(1)
 

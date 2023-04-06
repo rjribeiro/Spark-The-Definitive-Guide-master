@@ -141,10 +141,7 @@ rdd = df.coalesce(10).rdd
 
 def partitionFunc(key):
   import random
-  if key == 17850 or key == 12583:
-    return 0
-  else:
-    return random.randint(1,2)
+  return 0 if key in [17850, 12583] else random.randint(1,2)
 
 keyedRDD = rdd.keyBy(lambda row: row[6])
 keyedRDD\
